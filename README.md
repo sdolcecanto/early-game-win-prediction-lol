@@ -1,62 +1,63 @@
-# Early-Game Match Outcome Prediction in League of Legends
+# Early Game Win Prediction in League of Legends
+## Overview
 
-Can the outcome of a League of Legends match be predicted using only the first 10 minutes of gameplay?
+This project builds a machine learning model to predict the outcome of a League of Legends match using only early-game data (first 10–15 minutes). The objective is to evaluate how well early performance determines match results and to identify the most relevant features influencing victory.
 
-This project explores the predictive power of early-game performance metrics in high-ranked League of Legends matches using dimensionality reduction, clustering, and supervised machine learning techniques.
+## Objective
+- Predict match outcome (win/loss) from early-game features
+- Compare different classification models
+- Identify the key variables driving predictions
 
----
+## Dataset
 
-## Project Overview
+The dataset contains structured match data extracted from League of Legends games. Each observation represents a match at a fixed early-game timestamp.
 
-The dataset contains approximately 10,000 ranked matches and includes a variety of features describing the state of the game at the 10-minute mark, such as:
-
-- Gold and experience differences
+Main features include:
+- Gold difference
 - Kills and deaths
-- Objective control (e.g., buffs)
-- Lane and jungle performance metrics
+- Towers destroyed
+- Neutral objectives (e.g., dragons, heralds)
+- Other early-game performance indicators
 
-Each observation represents a single match, with 38 features capturing early-game dynamics.  
-The target variable (`blueWins`) indicates whether the blue team ultimately won the match.
+## Methodology
 
-The goal of this analysis is to determine how informative early-game performance is with respect to the final match outcome.
+### Data Preparation
+- Cleaned and structured raw data
+- Handled missing values
+- Selected and engineered relevant features
+- Defined early-game cutoff window
 
----
+### Modelling
+The following models were trained and compared:
 
-## Methods
+- Logistic Regression (baseline)
+- Random Forest
 
-The analysis includes:
+Model performance was evaluated using:
 
-- Exploratory Data Analysis (EDA)
-- Feature scaling and preprocessing
-- Principal Component Analysis (PCA)
-- K-Means clustering in reduced feature space
-- Random Forest classification
-- Stratified K-Fold cross-validation
-- Model evaluation via confusion matrix and ROC curve
+- Accuracy
+- Precision and recall
+- F1-score
+- Confusion matrix
 
----
+# Results
 
-## Results
+Model performance (accuracy):
 
-The final Random Forest classifier achieved:
+- Random Forest: 72.1%    
+- Cross-validated RF: 72.6%    
+- Tuned RF (CV best): 73.0%   (AUC ≈ 0.81)
 
-- **Accuracy:** ~72% on held-out test data  
-- **ROC-AUC:** 0.81  
+A confusion matrix and feature importance plot are included in the notebook for further analysis.
 
-These results suggest that early-game performance metrics contain meaningful predictive information about the final outcome of a match, despite predictions being made using only the first 10 minutes of gameplay.
+# Key Findings
 
----
+The best-performing model (Random Forest) achieved approximately 72–73% accuracy, with consistent performance across cross-validation, indicating stable generalization. The AUC value 0.81 indicates good discriminative ability, suggesting that the model is able to distinguish between wins and losses effectively.
 
-## Repository Contents
+Gold difference was the most important predictor of match outcome, followed by experience difference, suggesting that overall resource advantage is more informative than isolated events such as kills.
 
-- `early_game_win_prediction_LoL.ipynb` – Full analysis pipeline, including preprocessing, dimensionality reduction, clustering, and classification.
-
----
-
-## Reproducibility
-
-To reproduce the analysis locally:
-
-1. Install the required Python libraries
-2. Obtain the kaggle dataset from https://www.kaggle.com/datasets/bobbyscience/league-of-legends-diamond-ranked-games-10-min
-
+## Tech Stack
+- Python  
+- pandas, numpy  
+- scikit-learn  
+- matplotlib / seaborn  
