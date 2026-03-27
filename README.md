@@ -1,63 +1,83 @@
-# Early Game Win Prediction in League of Legends
+# Early-Stage Outcome Prediction Using Quantitative Match Features
+
 ## Overview
 
-This project builds a machine learning model to predict the outcome of a League of Legends match using only early-game data (first 10–15 minutes). The objective is to evaluate how well early performance determines match results and to identify the most relevant features influencing victory.
+This project builds a classification model to predict final outcomes using only early-stage quantitative features (first 10–15 minutes of activity). The goal is to evaluate how strongly early performance metrics determine final results and to identify the most informative variables.
+
+The dataset is derived from League of Legends matches, but the methodology is general and applicable to early-stage prediction problems.
+
+---
 
 ## Objective
-- Predict match outcome (win/loss) from early-game features
-- Compare different classification models
-- Identify the key variables driving predictions
+
+* Predict binary outcome (win/loss) from early-stage features
+* Compare baseline and ensemble models
+* Identify key drivers of prediction
+
+---
 
 ## Dataset
 
-The dataset contains structured match data extracted from League of Legends games. Each observation represents a match at a fixed early-game timestamp.
+The dataset consists of structured match-level observations at a fixed early timestamp.
 
-Main features include:
-- Gold difference
-- Kills and deaths
-- Towers destroyed
-- Neutral objectives (e.g., dragons, heralds)
-- Other early-game performance indicators
+Features include:
+
+* Resource metrics (gold difference, experience difference)
+* Performance indicators (kills, deaths)
+* Objective control (towers, neutral objectives)
+* Aggregated early-game statistics
+
+---
 
 ## Methodology
 
 ### Data Preparation
-- Cleaned and structured raw data
-- Handled missing values
-- Selected and engineered relevant features
-- Defined early-game cutoff window
+
+* Data cleaning and preprocessing
+* Handling missing values
+* Feature selection and engineering
+* Definition of early-stage cutoff window
+
+---
 
 ### Modelling
-The following models were trained and compared:
 
-- Logistic Regression (baseline)
-- Random Forest
+The following models were implemented:
 
-Model performance was evaluated using:
+* Logistic Regression (baseline)
+* Random Forest
 
-- Accuracy
-- Precision and recall
-- F1-score
-- Confusion matrix
+Evaluation metrics:
 
-# Results
+* Accuracy
+* Precision / Recall
+* F1-score
+* ROC-AUC
 
-Model performance (accuracy):
+---
 
-- Random Forest: 72.1%    
-- Cross-validated RF: 72.6%    
-- Tuned RF (CV best): 73.0%   (AUC ≈ 0.81)
+## Results
 
-A confusion matrix and feature importance plot are included in the notebook for further analysis.
+* Random Forest: 72.1% accuracy
+* Cross-validated RF: 72.6%
+* Tuned RF (best CV): 73.0%
+* ROC-AUC: ~0.81
 
-# Key Findings
+The model shows stable performance across cross-validation, indicating good generalization.
 
-The best-performing model (Random Forest) achieved approximately 72–73% accuracy, with consistent performance across cross-validation, indicating stable generalization. The AUC value 0.81 indicates good discriminative ability, suggesting that the model is able to distinguish between wins and losses effectively.
+---
 
-Gold difference was the most important predictor of match outcome, followed by experience difference, suggesting that overall resource advantage is more informative than isolated events such as kills.
+## Key Findings
+
+* Early-stage features provide strong predictive power for final outcomes
+* Resource-related variables (especially gold difference) are the most important predictors
+* Global performance indicators outperform isolated event-based features
+
+---
 
 ## Tech Stack
-- Python  
-- pandas, numpy  
-- scikit-learn  
-- matplotlib / seaborn  
+
+* Python
+* pandas, numpy
+* scikit-learn
+* matplotlib / seaborn
